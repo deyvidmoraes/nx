@@ -1,0 +1,125 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:nx="http://java.sun.com/jsf/composite/components"
+	template="#{pageContext.request.contextPath}/template/template.xhtml">
+
+	<ui:param name="pagina" value="#{msg.txt_pedido}" />
+
+	<ui:define name="content">
+		<h:form id="pedidoForm" prependId="false">
+		
+			<div class="form-horizontal">
+				<p>
+					<h:outputLabel value="#{pedidoCadastroBean.evento.descricao}" />
+				</p>
+	
+				<h:panelGroup id="lotePG">
+					<div class="form-group">
+						<h:outputLabel value="#{msg.txt_lote}"
+							styleClass="col-sm-4 control-label" />
+						<div class="col-sm-20">
+							<h:selectOneMenu id="loteSOM" styleClass="form-control"
+								value="#{pedidoCadastroBean.idLoteSelecionado}">
+								<f:selectItem itemLabel="#{msg.txt_selecione}" />
+								<f:selectItems value="#{pedidoCadastroBean.lotes}" var="lote"
+									itemValue="#{lote.id}"
+									itemLabel="#{lote.ingressoTipo.descricao}" />
+								<f:ajax event="change" execute="@this" render="lotePG"
+									listener="#{pedidoCadastroBean.selecionarLote()}" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<h:outputLabel value="Valor" styleClass="col-sm-4 control-label" />
+						<div class="col-sm-20">
+							<h:outputText id="valorOT"
+								value="#{pedidoCadastroBean.lote.valor}" />
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<h:outputLabel value="Quantidade"
+							styleClass="col-sm-4 control-label" />
+						<div class="col-sm-20">
+							<h:inputText id="quantidadeIT"
+								value="#{pedidoCadastroBean.quantidade}"
+								styleClass="form-control" />
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<div class="col-sm-20 col-sm-offset-4">
+							<h:commandButton id="adicionarIngressoBtn"
+								styleClass="btn btn-default" value="Adicionar">
+								<f:ajax event="click" execute="lotePG"
+									listener="#{pedidoCadastroBean.adicionaIngresso}"
+									render="lotePG" />
+							</h:commandButton>
+						</div>
+					</div>
+					
+					
+					
+					
+					<ui:repeat var="posicao" value="#{pedidoCadastroBean.ingressos}">
+	
+						<h:outputText
+							value="#{pedidoCadastroBean.ingressoPorPosicao(posicao).lote.numero}" />
+	
+						<h:outputText value="     " />
+	
+						<h:outputText
+							value="#{pedidoCadastroBean.ingressoPorPosicao(posicao).lote.ingressoTipo.descricao}" />
+	
+						<h:outputText value="     " />
+	
+						<h:outputText
+							value="#{pedidoCadastroBean.ingressoPorPosicao(posicao).lote.valor}" />
+	
+	
+						<h:outputText value="     " />
+	
+						<h:outputText
+							value="#{pedidoCadastroBean.ingressoPorPosicao(posicao).lote.taxaAdministrativa}" />
+	
+						<h:commandLink>
+							<img src="../resources/images/ico/16x16/pencil.png" />
+							<f:ajax execute="@this" render="lotePG"
+								listener="#{pedidoCadastroBean.removerIngresso(posicao)}" />
+						</h:commandLink>
+	
+						<br />
+	
+					</ui:repeat>
+	
+					<div class="form-group">
+						<h:outputLabel value="#{msg.txt_total}" />
+						<div class="control">
+							<h:outputLabel id="valorTotalOL"
+								value="#{pedidoCadastroBean.valorTotal}" />
+						</div>
+					</div>
+				</h:panelGroup>
+
+				<div class="form-group">
+					<div class="col-sm-20 col-sm-offset-4 wrap-btn-form">
+						<h:commandButton id="salvarBtn"
+							action="#{pedidoCadastroBean.salvar}"
+							styleClass="btn btn-default btn-primary" value="Salvar">
+						</h:commandButton>
+		
+						<h:commandButton id="voltarBtn" action="eventos?faces-redirect=true"
+							immediate="true" styleClass="btn btn-default" value="Voltar">
+						</h:commandButton>
+					</div>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

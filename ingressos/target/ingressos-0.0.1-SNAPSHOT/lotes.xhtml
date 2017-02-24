@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:nx="http://java.sun.com/jsf/composite/components"
+	template="#{pageContext.request.contextPath}/template/template.xhtml">
+
+	<ui:param name="pagina" value="#{msg.txt_lote}" />
+
+	<ui:define name="content">
+		<h:form id="loteForm" prependId="false">
+
+			<div class="form-horizontal">
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_data_inicio}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText id="dataInicio" styleClass="form-control"
+							value="#{loteCadastroBean.dataInicio}" required="true">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:inputText>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_data_fim}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText id="dataInicio" styleClass="form-control"
+							value="#{loteCadastroBean.dataFim}" required="true">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:inputText>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_numero}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{loteCadastroBean.lote.numero}"
+							required="true" styleClass="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_quantidade}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{loteCadastroBean.lote.quantidadeIngressos}"
+							required="true" styleClass="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_taxa_administrativa}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{loteCadastroBean.lote.taxaAdministrativa}"
+							required="true" styleClass="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_valor}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{loteCadastroBean.lote.valor}"
+							required="true" styleClass="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_evento}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:selectOneMenu id="eventoSOM" styleClass="form-control"
+							value="#{loteCadastroBean.idEventoSelecionado}">
+							<f:selectItem itemLabel="#{msg.txt_selecione}" />
+							<f:selectItems var="evento"
+								value="#{loteCadastroBean.eventoLista}" itemValue="#{evento.id}"
+								itemLabel="#{evento.descricao}" required="true" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_tipo_ingresso}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:selectOneMenu id="ingressoTipoSOM" styleClass="form-control"
+							value="#{loteCadastroBean.idIngressoTipoSelecionado}">
+							<f:selectItem itemLabel="#{msg.txt_selecione}" />
+							<f:selectItems var="ingressoTipo"
+								value="#{loteCadastroBean.ingressoTipoLista}"
+								itemValue="#{tipo.id}" itemLabel="#{tipo.descricao}"
+								required="true" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_situacao}"
+						styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:selectOneMenu id="loteSituacaoSOM" styleClass="form-control"
+							value="#{loteCadastroBean.idLoteSituacaoSelecionado}">
+							<f:selectItem itemLabel="#{msg.txt_selecione}" />
+							<f:selectItems var="situacao"
+								value="#{loteCadastroBean.loteSituacaoLista}"
+								itemValue="#{situacao.id}" itemLabel="#{situacao.descricao}"
+								required="true" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-20 col-sm-offset-4 wrap-btn-form">
+						<h:commandButton id="salvarBtn"
+							action="#{loteCadastroBean.salvar}" value="Salvar"
+							styleClass="btn btn-default btn-primary">
+						</h:commandButton>
+
+						<h:commandButton id="voltarBtn" action="lotes?faces-redirect=true"
+							immediate="true" value="Voltar" styleClass="btn btn-default">
+						</h:commandButton>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

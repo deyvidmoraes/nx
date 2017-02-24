@@ -1,0 +1,235 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:nx="http://java.sun.com/jsf/composite/components"
+	template="#{pageContext.request.contextPath}/template/template.xhtml">
+
+	<ui:param name="pagina" value="#{msg.txt_cliente}" />
+
+	<ui:define name="content">
+		<h:form id="clienteForm" prependId="false">
+		
+			<div class="form-horizontal">
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_nome}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.nome}"
+							required="true" 
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_maiusc_cpf_cnpj}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.cpfCnpj}"
+							required="true"
+							styleClass="form-control">
+							<f:converter
+								converterId="br.com.nx.tickets.converter.InputCpfCnpjConverter" />
+						</h:inputText>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_rg_inscricao_estadual}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.rgInscricaoEstadual}"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_emissor}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.emissor}"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_email}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.email}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_telefone_comercial}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.telefoneComercial}"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_telefone_residencial}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.telefoneResidencial}"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_telefone_celular}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.telefoneCelular}"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_cep}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.endereco.cep}"
+						styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_bairro}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.endereco.bairro}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_logradouro}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.endereco.logradouro}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_numero}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.endereco.numero}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_tipo_logradouro}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.endereco.tipoLogradouro}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_apartamento}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.endereco.apartamento}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_bloco}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText value="#{clienteCadastroBean.cliente.endereco.bloco}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_complemento}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.endereco.complemento}"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_ponto_referencia}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:inputText
+							value="#{clienteCadastroBean.cliente.endereco.pontoReferencia}"
+							required="true"
+							styleClass="form-control" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_segmento}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:selectOneMenu id="segmentoSOM" styleClass="form-control"
+							value="#{clienteCadastroBean.idSegmentoSelecionado}">
+							<f:selectItem itemLabel="#{msg.txt_selecione}" />
+							<f:selectItems var="segmento"
+								value="#{clienteCadastroBean.segmentos}"
+								itemValue="#{segmento.id}" itemLabel="#{segmento.descricao}"
+								required="true" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<h:outputLabel value="#{msg.txt_estado}" styleClass="col-sm-4 control-label" />
+					<div class="col-sm-20">
+						<h:selectOneMenu id="estadoSOM" styleClass="form-control"
+							value="#{clienteCadastroBean.ufEstadoSelecionado}">
+							<f:selectItem itemLabel="#{msg.txt_selecione}" />
+							<f:selectItems var="estado" value="#{clienteCadastroBean.estados}"
+								itemValue="#{estado.uf}" itemLabel="#{estado.nome}"
+								required="true" />
+							<f:ajax execute="@this" render="cidadePG" event="change"
+								listener="#{clienteCadastroBean.carregarCidades()}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+	
+				<h:panelGroup id="cidadePG">
+					<div class="form-group">
+						<h:outputLabel value="#{msg.txt_cidade}" styleClass="col-sm-4 control-label" />
+						<div class="col-sm-20">
+							<h:selectOneMenu id="cidadeSOM" styleClass="form-control input-m"
+								value="#{clienteCadastroBean.idCidadeSelecionada}"
+								disabled="#{empty clienteCadastroBean.cidades}">
+								<f:selectItem itemLabel="#{msg.txt_cidade}" />
+								<f:selectItems var="cidade"
+									value="#{clienteCadastroBean.cidades}" itemValue="#{cidade.id}"
+									itemLabel="#{cidade.nome}" required="true" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+				</h:panelGroup>
+				
+				<div class="form-group">
+					<div class="col-sm-20 col-sm-offset-4 wrap-btn-form">
+						<h:commandButton id="salvarBtn"
+							action="#{clienteCadastroBean.salvar}" value="Salvar"
+							styleClass="btn btn-default btn-primary">
+						</h:commandButton>
+	
+						<h:commandButton id="voltarBtn"
+							action="clientes?faces-redirect=true" immediate="true"
+							value="Voltar" styleClass="btn btn-default">
+						</h:commandButton>
+					</div>
+				</div>
+			</div>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

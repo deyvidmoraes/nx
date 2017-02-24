@@ -1,0 +1,82 @@
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+
+		<composite:attribute name="id" />
+		<composite:attribute name="draggable" />
+		<composite:attribute name="full" required="false" />
+		<composite:attribute name="titulo" required="true" />
+		<composite:attribute name="tituloTransform" required="false" />
+
+		<composite:attribute name="controleModal" required="true" />
+
+		<composite:attribute name="fecharModal" method-signature="java.lang.String  action()" required="false" />
+		
+		<composite:attribute name="idModal" required="false" />
+		<composite:attribute name="mini" required="false" />
+		<composite:attribute name="tipo" required="false" />
+		<composite:attribute name="salvar" required="false" />
+		<composite:attribute name="minimizar" required="false" />
+
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGroup id="#{cc.attrs.id}">
+			<h:panelGroup rendered="#{cc.attrs.controleModal}">
+				<h:panelGroup rendered="#{(not cc.attrs.draggable)}">
+					<div class="lock-screen"></div>
+				</h:panelGroup>
+				
+				<div id="#{cc.attrs.idModal}" class="wrapper-modal #{(cc.attrs.full) ? 'full' : ''} #{(cc.attrs.draggable) ? 'draggable' : ''} #{(cc.attrs.mini) ? 'mini' : ''} #{cc.attrs.tipo}">
+					<div class="wrap-modal #{(cc.attrs.mini) ? 'mini' : ''}">
+						<div class="modal">
+							<div class="wrap-ttl-modal">
+								<h2 class="#{cc.attrs.tituloTransform}">
+									<h:outputText value="#{cc.attrs.titulo}" escape="false" />
+<!-- 									<h:outputText value="#{(cc.attrs.titulo not empty) ? cc.attrs.titulo : 'Mensagem do Sistema'}" escape="false" /> -->
+								</h2>
+								
+								<div class="wrap-btn-opcoes-modal">
+									<h:panelGroup rendered="#{(cc.attrs.salvar)}">
+										<h:commandLink styleClass="btn-salvar-modal">
+											<img src="../resources/images/blank.gif"
+												title="#{msg.txt_salvar}" />
+										</h:commandLink>
+									</h:panelGroup>
+									
+									<h:panelGroup rendered="#{(cc.attrs.minimizar)}">
+										<a href="javascript:void(0);" class="btn-minimizar-restaurar-modal">
+											<img src="../resources/images/blank.gif"
+												title="#{msg.txt_minimizar_restaurar}" />
+										</a>
+									</h:panelGroup>
+									
+									<h:commandLink styleClass="btn-fechar-modal"
+												   rendered="#{cc.attrs.fecharModal ne null}">
+										<img src="../resources/images/blank.gif"
+											title="#{msg.txt_fechar}" />
+										<f:ajax event="click" 
+											render="#{cc.attrs.id}:#{cc.attrs.id}"
+											listener="#{cc.attrs.fecharModal}" />
+									</h:commandLink>
+								</div>
+							</div>
+
+							<div class="wrap-cont-modal">
+								<composite:insertChildren />
+							</div>
+						</div>
+					</div>
+					<h:panelGroup rendered="#{(!cc.attrs.draggable)}">
+						<div class="espaco"></div>
+					</h:panelGroup>
+				</div>
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
+</ui:composition>
+

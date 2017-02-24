@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!-- ./standalone.sh -b 0.0.0.0 -Djboss.http.port=80 & -->
+<!-- pg_ctl -D /usr/local/var/postgres status -->
+<jboss-web>
+	<context-root>/</context-root>
+<!-- 	<virtual-host>multi123</virtual-host> -->
+</jboss-web>

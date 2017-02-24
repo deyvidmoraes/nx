@@ -1,0 +1,298 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/template.xhtml"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="pagina" value="#{msg.txt_eventos}" />
+	<ui:param name="paginaTipo" value="#{msg.txt_listagem}" />
+
+	<ui:define name="content">
+		<h:form id="eventosForm" prependId="false">
+
+			<div class="btn-group">
+				<h:commandLink immediate="true" action="evento?faces-redirect=true"
+					styleClass="btn btn-default" value="Novo">
+				</h:commandLink>
+
+				<h:commandLink immediate="true" action="home?faces-redirect=true"
+					styleClass="btn btn-default" value="Voltar">
+				</h:commandLink>
+			</div>
+
+			<div>
+				<h:panelGroup id="eventosPG">
+					<nx:dataTable id="evento" bean="#{eventoListagemBean}"
+						columnClass="" componenteBtn="false">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_evento}" />
+							</f:facet>
+							<h:outputText value="#{item.descricao}" />
+						</h:column>
+
+						<h:column rendered="false">
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_situacao}" />
+							</f:facet>
+							<h:panelGroup>
+								<div class="wrap-btn-inside-grid">
+									<nx:situacao bean="#{eventoListagemBean}" item="#{item}"
+										render="evento:eventoDT" />
+								</div>
+							</h:panelGroup>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_ponto_venda}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink value="PONTO VENDA">
+									<f:ajax execute="@this" render="pontoVendaPG"
+										listener="#{eventoListagemBean.obterPontosVendasPorEvento(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<div class="">
+									<h:outputText value="#{msg.txt_atracao}" />
+								</div>
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink value="ATRAÇÃO">
+									<f:ajax execute="@this" render="atracaoPG"
+										listener="#{eventoListagemBean.obterAtracoesPorEvento(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<div class="">
+									<h:outputText value="#{msg.txt_pedido}" />
+								</div>
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink value="PEDIDOS" action="pedido">
+									<f:param name="idEvento" value="#{item.id}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_detalhes_pedidos}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink value="DETALHES PEDIDOS" action="pedidos">
+									<f:param name="idEvento" value="#{item.id}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</nx:dataTable>
+				</h:panelGroup>
+			</div>
+
+			<h:panelGroup id="pontoVendaPG">
+				<nx:modal id="pontoVendaModal"
+					controleModal="#{eventoListagemBean.exibirModalPontoVenda}"
+					titulo="Pontos de Venda Modal"
+					fecharModal="#{eventoListagemBean.fechar()}">
+
+					<h:outputText value="Associados" />
+
+					<h:dataTable id="pontosVendasAssociados"
+						value="#{eventoListagemBean.pontosVendasAssociados}" var="item"
+						columnClass="">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_nome}" />
+							</f:facet>
+							<h:outputText value="#{item.nome}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<div class="align-center">
+									<h:outputText value="#{msg.txt_opcoes}" />
+								</div>
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink>
+									<img src="../resources/images/ico/16x16/pencil.png"
+										title="#{msg.txt_pontos_vendas}" />
+									<f:ajax execute="@this" render="pontoVendaPG"
+										listener="#{eventoListagemBean.removerPontoVenda(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+
+					<h:outputText value="Disponíveis" />
+
+					<h:dataTable id="pontosVendasDisponiveis"
+						value="#{eventoListagemBean.pontosVendasDisponiveis}" var="item"
+						columnClass="">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_nome}" />
+							</f:facet>
+							<h:outputText value="#{item.nome}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_opcoes}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink>
+									<img src="../resources/images/ico/16x16/pencil.png"
+										title="#{msg.txt_pontos_vendas}" />
+									<f:ajax execute="@this" render="pontoVendaPG"
+										listener="#{eventoListagemBean.adicionarPontoVenda(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+
+					<h:commandLink value="SALVAR">
+						<f:ajax execute="@this" render="pontoVendaPG"
+							listener="#{eventoListagemBean.salvarPontoVendaAssociado()}" />
+					</h:commandLink>
+				</nx:modal>
+			</h:panelGroup>
+
+			<h:panelGroup id="atracaoPG">
+				<nx:modal id="atracaoModal"
+					controleModal="#{eventoListagemBean.exibirModalAtracao}"
+					titulo="Atracao Modal" fecharModal="#{eventoListagemBean.fechar()}">
+
+					<h:outputText value="ASSOCIADOS" />
+
+					<h:dataTable id="atracoesAssociadas"
+						value="#{eventoListagemBean.atracoesAssociadas}" var="item"
+						columnClass="">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_nome}" />
+							</f:facet>
+							<h:outputText value="#{item.nome}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_remover}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink>
+									<img src="../resources/images/ico/16x16/pencil.png"
+										title="#{msg.txt_atracoes}" />
+									<f:ajax execute="@this" render="atracaoPG"
+										listener="#{eventoListagemBean.removerAtracao(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+
+					<h:outputText value="DISPONIVEIS" />
+
+					<h:dataTable id="atracoesDisponiveis"
+						value="#{eventoListagemBean.atracoesDisponiveis}" var="item"
+						columnClass=",,,col-1-ico">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_nome}" />
+							</f:facet>
+							<h:outputText value="#{item.nome}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_adicionar}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink>
+									<img src="../resources/images/ico/16x16/pencil.png"
+										title="#{msg.txt_atracoes}" />
+									<f:ajax execute="@this" render="atracaoPG"
+										listener="#{eventoListagemBean.adicionarAtracao(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+
+					<h:commandLink value="Salvar">
+						<f:ajax execute="@this" render="atracaoPG"
+							listener="#{eventoListagemBean.salvarAtracaoAssociado()}" />
+					</h:commandLink>
+				</nx:modal>
+			</h:panelGroup>
+
+			<h:panelGroup id="eventoPG">
+				<nx:modal id="eventoModal"
+					controleModal="#{eventoListagemBean.exibirModalEvento}"
+					titulo="Pontos de Venda - #{eventoListagemBean.evento.descricao}"
+					fecharModal="#{eventoListagemBean.fechar()}">
+
+					<h:panelGroup id="pontosVendasPG">
+						<h:dataTable id="pontoVendaDT"
+							value="#{eventoListagemBean.pontosVendas}"
+							columnClass="" var="item">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.txt_nome}" />
+								</f:facet>
+								<h:outputText value="#{item.nome}" />
+							</h:column>
+						</h:dataTable>
+					</h:panelGroup>
+				</nx:modal>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/template.xhtml"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="pagina" value="#{msg.txt_lotes}" />
+	<ui:param name="paginaTipo" value="#{msg.txt_listagem}" />
+
+	<ui:define name="content">
+		<h:form id="lotesForm" prependId="false">
+			<div class="btn-group">
+				<h:commandLink immediate="true" action="lote?faces-redirect=true"
+					styleClass="btn btn-default" value="Novo">
+				</h:commandLink>
+
+				<h:commandLink immediate="true" action="home?faces-redirect=true"
+					styleClass="btn btn-default" value="Voltar">
+				</h:commandLink>
+			</div>
+
+			<div>
+				<h:panelGroup id="lotesPG">
+					<nx:dataTable id="lote" bean="#{loteListagemBean}" columnClass=""
+						componenteBtn="false">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_evento}" />
+							</f:facet>
+							<h:outputText value="#{item.evento.descricao}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_valor}" />
+							</f:facet>
+							<h:outputText value="#{item.valor}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_tipo_ingresso}" />
+							</f:facet>
+							<h:outputText value="#{item.ingressoTipo.descricao}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_data_inicio}" />
+							</f:facet>
+							<h:outputText value="#{item.dataInicioListar}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_data_fim}" />
+							</f:facet>
+							<h:outputText value="#{item.dataFimListar}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_data_cadastro}" />
+							</f:facet>
+							<h:outputText value="#{item.dataCadastroListar}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_numero}" />
+							</f:facet>
+							<h:outputText value="#{item.numero}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_quantidade_ingressos}" />
+							</f:facet>
+							<h:outputText value="#{item.quantidadeIngressos}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_taxa_administrativa}" />
+							</f:facet>
+							<h:outputText value="#{item.taxaAdministrativa}" />
+						</h:column>
+
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_situacao}" />
+							</f:facet>
+							<h:outputText value="#{item.loteSituacao.descricao}" />
+						</h:column>
+
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_opcoes}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink action="lote">
+									<img src="../resources/images/ico/16x16/pencil.png"
+										title="#{msg.txt_editar}" />
+									<f:param name="id" value="#{item.id}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</nx:dataTable>
+				</h:panelGroup>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

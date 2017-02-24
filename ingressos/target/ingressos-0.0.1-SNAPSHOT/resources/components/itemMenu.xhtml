@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="id" />
+		<composite:attribute name="pagina" required="true" default="home" />
+		<composite:attribute name="bean" required="true" />
+		<composite:attribute name="rendered" required="false" default="true" />
+		<composite:attribute name="label" required="true" default="Home" type="java.lang.String" />
+	</composite:interface>
+
+	<composite:implementation>
+	
+		<h:panelGroup id="#{cc.attrs.id}PGMenu"
+			rendered="#{(cc.attrs.rendered)}">
+			
+			<li>
+				<h:commandLink id="#{cc.attrs.id}CL"
+					value="#{cc.attrs.label}"
+					action="#{cc.attrs.bean.irParaPagina(cc.attrs.pagina)}" />
+			</li>
+					
+		</h:panelGroup>
+		
+	</composite:implementation>
+</ui:composition>

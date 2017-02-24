@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/template.xhtml"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="pagina" value="#{msg.txt_pontos_vendas}" />
+	<ui:param name="paginaTipo" value="#{msg.txt_listagem}" />
+
+	<ui:define name="content">
+		<h:form id="pontosVendasForm" prependId="false">
+			
+			<div class="btn-group"> 
+				<h:commandLink immediate="true"
+					action="pontoVenda?faces-redirect=true"
+					styleClass="btn btn-default"
+					value="Novo">
+				</h:commandLink>
+				
+				<h:commandLink
+					immediate="true" 
+					action="home?faces-redirect=true"
+					styleClass="btn btn-default"
+					value="Voltar">
+				</h:commandLink>
+			</div>
+			
+			<div>
+				<h:panelGroup id="pontosVendasPG">
+					<nx:dataTable id="pontoVenda" bean="#{pontoVendaListagemBean}"
+						columnClass="" componenteBtn="false">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_ponto_venda}" />
+							</f:facet>
+							<h:outputText value="#{item.nome}" />
+						</h:column>
+<!-- 								<h:column rendered="false"> -->
+<!-- 									<f:facet name="header"> -->
+<!-- 											<h:outputText value="#{msg.txt_situacao}" /> -->
+<!-- 									</f:facet> -->
+<!-- 									<h:panelGroup> -->
+<!-- 											<nx:situacao bean="#{pontoVendaListagemBean}" item="#{item}" -->
+<!-- 												render="pontoVenda:pontoVendaDT" /> -->
+<!-- 									</h:panelGroup> -->
+<!-- 								</h:column> -->
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_eventos}" />
+							</f:facet>
+							<h:panelGroup>
+									<h:commandLink value="EVENTO">
+										<f:ajax execute="@this" render="eventosPG"
+											listener="#{pontoVendaListagemBean.obterEventosPorPontoVenda(item)}" />
+									</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</nx:dataTable>
+				</h:panelGroup>
+			</div>
+
+			<h:panelGroup id="eventosPG">
+				<nx:modal id="eventoModal"
+					controleModal="#{pontoVendaListagemBean.exibirModalEvento}"
+					titulo="Evento Modal"
+					fecharModal="#{pontoVendaListagemBean.fechar()}">
+
+					<h:outputText value="ASSOCIADOS" />
+					
+					<h:dataTable id="eventosAssociados"
+						value="#{pontoVendaListagemBean.eventosAssociados}" var="item"
+						columnClass="">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_descricao}" />
+							</f:facet>
+							<h:outputText value="#{item.descricao}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_opcoes}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink id="removerCL" value="REMOVER">
+									<f:ajax execute="@this" render="eventosPG"
+										listener="#{pontoVendaListagemBean.removerEvento(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+
+
+					<h:outputText value="DISPONIVEIS" />
+					
+					<h:dataTable id="eventosDisponiveis"
+						value="#{pontoVendaListagemBean.eventosDisponiveis}" var="item"
+						columnClass="">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_descricao}" />
+							</f:facet>
+							<h:outputText value="#{item.descricao}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_opcoes}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink id="removerCL" value="REMOVER" >
+									<f:ajax execute="@this" render="pontoVendaPG"
+										listener="#{pontoVendaListagemBean.adicionarEvento(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</h:dataTable>
+					
+					<h:commandLink value="SALVAR">
+						<f:ajax execute="@this" render="pontoVendaPG"
+							listener="#{pontoVendaListagemBean.salvarEventosAssociados()}" />
+					</h:commandLink>
+				</nx:modal>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

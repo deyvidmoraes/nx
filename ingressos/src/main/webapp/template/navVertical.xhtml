@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<h:form id="navVertical" prependId="false">
+
+		<div class="sidebar-nav">
+			<div class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".nav-vertical">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div
+					class="navbar-collapse collapse sidebar-navbar-collapse nav-vertical">
+					<ul class="nav navbar-nav navbar-nav-side">
+						<li class="dropdown-header">Geral</li>
+						<li>
+							<ul class="dropdown-menu-2">
+								<li><h:commandLink action="home.nx"
+										value="Página Principal" /></li>
+							</ul>
+						</li>
+
+						<li class="dropdown-header">Navegação</li>
+						<li>
+							<ul class="dropdown-menu-2">
+								<li><h:commandLink action="clientes?faces-redirect=true"
+										value="Clientes" /></li>
+								<li><h:commandLink
+										action="pontosVendas?faces-redirect=true" value="PDVs" /></li>
+								<li><h:commandLink action="eventos?faces-redirect=true"
+										value="Eventos" /></li>
+								<li><h:commandLink action="lotes?faces-redirect=true"
+										value="Lotes" /></li>
+								<li><h:commandLink action="usuarios?faces-redirect=true"
+										value="Usuários" /></li>
+								<li><h:commandLink action="atracoes?faces-redirect=true"
+										value="Atrações" /></li>
+								<li><h:commandLink action="locais?faces-redirect=true"
+										value="Locais" /></li>
+								<li><h:commandLink action="portarias?faces-redirect=true"
+										value="Portarias" /></li>
+								<!-- <li class="dropdown">
+									<a href="#" 
+										class="dropdown-toggle"
+										data-toggle="dropdown" 
+										role="button" 
+										aria-expanded="false">
+										Link #1 <span class="caret-right"></span>
+									</a>
+									<ul class="dropdown-menu" role="menu">
+										<li class="dropdown-header esconde">Link #1</li>
+										<li><a href="#">Link #1 1.1</a></li>
+										<li><a href="#">Link #1 1.2</a></li>
+										<li><a href="#">Link #1 1.3</a></li>
+									</ul>
+								</li> -->
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+</ui:composition>

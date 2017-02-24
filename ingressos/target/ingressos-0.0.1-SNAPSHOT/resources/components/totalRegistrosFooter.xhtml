@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<composite:interface>
+
+		<composite:attribute name="id" required="false" />
+		<composite:attribute name="totalRegistros" required="true" default="0" />
+
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGroup rendered="#{cc.attrs.totalRegistros gt 0}">
+			<div class="wrap-pagination">
+				<div class="total-registros">
+					<h:outputText value="#{msg.txt_total_registros}: " />
+					<strong>
+						<h:outputText value="#{cc.attrs.totalRegistros}" />
+					</strong>
+				</div>
+			</div>
+		</h:panelGroup>
+	</composite:implementation>
+
+</ui:composition>

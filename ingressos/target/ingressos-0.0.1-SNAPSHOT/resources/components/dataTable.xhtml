@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<composite:interface>
+
+		<composite:attribute name="id" required="false" />
+		<composite:attribute name="var" />
+		<composite:attribute name="headerClass" />
+		<composite:attribute name="footerClass" />
+		<composite:attribute name="bean" required="true" />
+		<composite:attribute name="columnClass" />
+		<composite:attribute name="exportarCSV" default="false" />
+		<composite:attribute name="exportarPDF" default="false" />
+		<composite:attribute name="cssClass" />
+		<composite:attribute name="componenteBtn" />
+
+		<composite:attribute name="renderPaginador"
+			default="#{cc.attrs.id}:#{cc.attrs.id}" />
+
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGroup id="#{cc.attrs.id}PaginacaoPG">
+
+			<h:outputText value="#{msg.txt_nao_ha_registros}"
+				rendered="#{empty cc.attrs.bean.paginador.registros}"
+				styleClass="nenhum-registro" />
+			<h:panelGroup
+				rendered="#{not empty cc.attrs.bean.paginador.registros}">
+				<div
+					class="wrap-btn-grid #{(!cc.attrs.componenteBtn) ? 'hide' : ''}">
+					<div class="cont-dir">
+						<h:commandLink action="#{cc.attrs.bean.exportarPDF}"
+							styleClass="btn ico ico-pdf"
+							rendered="#{not empty cc.attrs.bean.paginador.registros  and cc.attrs.exportarPDF}" >
+							<i></i>
+							<span><h:outputText value="#{msg.txt_exportar_pdf}" /></span>
+						</h:commandLink>
+
+						<h:commandLink action="#{cc.attrs.bean.exportarCSV}"
+							styleClass="btn ico ico-excel"
+							rendered="#{not empty cc.attrs.bean.paginador.registros and cc.attrs.exportarCSV}">
+							<i></i>
+							<span><h:outputText value="#{msg.txt_exportar_csv}" /></span>
+						</h:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup
+				rendered="#{not empty cc.attrs.bean.paginador.registros}">
+				<div class="scroll-horizontal">
+					<h:dataTable id="#{cc.attrs.id}DT" var="item"
+						value="#{cc.attrs.bean.paginador.registros}"
+						styleClass="table #{cc.attrs.cssClass}"
+						columnClasses="#{cc.attrs.columnClass}">
+						<composite:insertChildren />
+					</h:dataTable>
+				</div>
+
+				<nx:paginador bean="#{cc.attrs.bean}"
+					render="#{cc.attrs.renderPaginador}PaginacaoPG" />
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
+
+</ui:composition>

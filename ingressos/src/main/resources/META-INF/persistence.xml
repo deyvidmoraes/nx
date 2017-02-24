@@ -1,0 +1,43 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="ingressosPU">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<!-- Base Local @172.16.1.198 -->
+<!-- 		<jta-data-source>java:/ingressosLocalDS</jta-data-source> -->
+		
+				<!-- Base de Desenvolvimento @172.16.1.198 -->
+		<jta-data-source>java:/ingressosDesenvDS</jta-data-source>
+
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver" value="org.postgresql.Driver" />
+			
+			<property name="hibernate.show_sql" value="true" /> 
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="update" />	 -->
+
+			<!-- Cache C2N -->
+			<!-- <property name="hibernate.cache.use_query_cache" value="true" /> -->
+			<!-- <property name="hibernate.cache.use_second_level_cache" value="true"/> -->
+
+			<!-- Auditoria -->
+			<property name="org.hibernate.envers.audit_table_prefix"
+				value="rev_" />
+			<property name="org.hibernate.envers.audit_table_suffix"
+				value="" />
+			<property name="org.hibernate.envers.default_schema" value="revisao" />
+			<property name="org.hibernate.envers.revision_field_name"
+				value="_revisao" />
+			<property name="org.hibernate.envers.revision_type_field_name"
+				value="tipo_alteracao" />
+
+			<!-- 0 - ADD -->
+			<!-- 1 - MOD -->
+			<!-- 2 - DEL -->
+		</properties>
+	</persistence-unit>
+</persistence>

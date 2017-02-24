@@ -1,0 +1,130 @@
+@font-face {
+	font-family: "RobotoLight";
+	src: url("../fonts/roboto-light-webfont.woff2") format("woff2"),
+		 url("../fonts/roboto-light-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "RobotoMedium";
+	src: url("../fonts/roboto-medium-webfont.woff2") format("woff2"),
+		url("../fonts/roboto-medium-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Roboto";
+	src: url("../fonts/roboto-regular-webfont.woff2") format("woff2"),
+		 url("../fonts/roboto-regular-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "RobotoSlabBold";
+	src: url("../fonts/robotoslab-bold-webfont.woff2") format("woff2"),
+		 url("../fonts/robotoslab-bold-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "RobotoSlabLight";
+	src: url("../fonts/robotoslab-light-webfont.woff2") format("woff2"),
+		 url("../fonts/robotoslab-light-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "RobotoSlab";
+	src: url("../fonts/robotoslab-regular-webfont.woff2") format("woff2"),
+		 url("../fonts/robotoslab-regular-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+html,body {width:100%;height:100%} 
+
+html {background-image:url("../images/fundo/1.jpg");background-position:center 50%;background-repeat:no-repeat;background-size:cover}
+body {margin:0;padding:0;font-family:"Roboto",Sans-Serif;color:#666;background:transparent url("../images/pattern.png")}
+
+* {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;outline:0}
+
+.wrapper {margin:0 auto;padding-top:20px;width:400px}
+
+.logo-sistema {margin-bottom:20px;text-align:center}
+
+a {color:#666;text-decoration:none}
+a:hover {color:#333}
+
+b,strong,.b,.bold,.strong {font-weight:bold}
+i,em,.i,.em {font-style:italic}
+
+.ttl {display:none;margin-bottom:20px;text-align:center}
+.ttl h1 {font-weight:300}
+
+.wrap-login {padding:20px;background-color:rgba(255,255,255,.9)}
+
+.form-group {margin-bottom:10px}
+.form-group label {display:none}
+
+.form-control,.btn {padding:4px 3px;font-family:"Roboto",Sans-Serif;font-size:18px;color:#666;background-color:#fff;border:none;border-bottom:2px solid #ccc;width:100%}
+.form-control:focus,.form-control:active {border-bottom-color:#fd5e02}
+
+.form-control.input-usuario,
+.form-control.input-senha {padding-right:32px;background-position:right 50%;background-repeat:no-repeat}
+.form-control.input-usuario {background-image:url("../images/ico-contact-card.png")}
+.form-control.input-senha {background-image:url("../images/ico-key.png")}
+
+.form-control.erro {color:#a94442;background-color:#ffe6e6;border-bottom-color:#a94442}
+.form-control.input-usuario.erro {background-image:url("../images/ico-contact-card-vermelho.png")}
+.form-control.input-senha.erro {background-image:url("../images/ico-key-vermelho.png")}
+
+.btn {
+    display:inline-block;
+    margin-bottom:0;
+    padding:7px 10px 10px;
+    white-space:nowrap;
+    vertical-align:middle;
+    cursor:pointer;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    background-image:none;
+    border:none;
+    border-radius:2px;
+
+    text-decoration:none;
+}
+.btn:hover {box-shadow:inset 1px 1px 1px rgba(0,0,0,.15)}
+
+.wrap-btn,
+.wrap-outros {margin-bottom:40px}
+
+.wrap-outros {text-align:center}
+
+.dados span {display:block}
+.dados .by {float:right;margin-top:2px}
+.dados .by img {display:block}
+
+.suporte {display:inline-block;margin-bottom:5px;padding:3px 5px 3px 22px;font-size:11px;background-position:left 50%;background-repeat:no-repeat}
+.suporte.help-desk {background-image:url("../images/ico-headset-login.png")}
+
+.suporte.user a {display:inline-block}
+.suporte.user a:hover {text-decoration:underline}
+
+.ex {font-size:11px;color:#999}
+.ex.block {margin-top:2px;text-align:center}
+
+.dados:before,
+.dados:after {content:" ";display:table}
+
+.dados:after {clear:both}
+
+
+
+

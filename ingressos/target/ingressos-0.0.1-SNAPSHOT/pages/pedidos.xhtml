@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/template.xhtml"
+	xmlns:nx="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="pagina" value="#{msg.txt_pedidos}" />
+	<ui:param name="paginaTipo" value="#{msg.txt_listagem}" />
+
+	<ui:define name="content">
+		<h:form id="pedidosForm" prependId="false">
+
+			<div class="btn-group">
+				<h:commandLink immediate="true" action="eventos?faces-redirect=true"
+					styleClass="btn btn-default" value="Voltar">
+				</h:commandLink>
+			</div>
+
+			<div>
+				<h:panelGroup id="pedidosPG">
+					<nx:dataTable id="pedido" bean="#{pedidoListagemBean}"
+						columnClass="" componenteBtn="false">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_maiusc_id}" />
+							</f:facet>
+							<h:outputText value="#{item.id}" />
+						</h:column>
+
+						<!-- 								<h:column> -->
+						<!-- 									<f:facet name="header"> -->
+						<!-- 										<div class=""> -->
+						<!-- 											<h:outputText value="#{msg.txt_pdv}" /> -->
+						<!-- 										</div> -->
+						<!-- 									</f:facet> -->
+						<!-- 									<h:outputText value="#{item.usuarioPontoVenda.pontoVenda.nome}" /> -->
+						<!-- 								</h:column> -->
+
+						<!-- 								<h:column> -->
+						<!-- 									<f:facet name="header"> -->
+						<!-- 										<div class=""> -->
+						<!-- 											<h:outputText value="#{msg.txt_usuario}" /> -->
+						<!-- 										</div> -->
+						<!-- 									</f:facet> -->
+						<!-- 									<h:outputText value="#{item.usuarioPontoVenda.usuario.nome}" /> -->
+						<!-- 								</h:column> -->
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_total}" />
+							</f:facet>
+							<h:outputText value="#{item.valorTotal}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_quantidade_ingressos}" />
+							</f:facet>
+							<h:outputText value="#{item.quantidadeIngresso}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.txt_opcoes}" />
+							</f:facet>
+							<h:panelGroup>
+								<h:commandLink value="INGRESSOS">
+									<f:ajax execute="@this" render="ingressoPG"
+										listener="#{pedidoListagemBean.obterIngressosPorPedido(item)}" />
+								</h:commandLink>
+							</h:panelGroup>
+						</h:column>
+					</nx:dataTable>
+				</h:panelGroup>
+
+			</div>
+
+			<h:panelGroup id="ingressoPG">
+				<nx:modal id="ingressoModal"
+					controleModal="#{pedidoListagemBean.exibirModalIngresso}"
+					titulo="Ingressos" fecharModal="#{pedidoListagemBean.fechar()}">
+
+					<h:panelGroup id="ingressosPG">
+						<h:dataTable id="ingressoDT"
+							value="#{pedidoListagemBean.pedido.ingressos}" var="item"
+							columnClass="">
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.txt_numero}" />
+								</f:facet>
+								<h:outputText value="#{item.lote.numero}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.txt_ingresso_tipo}" />
+								</f:facet>
+								<h:outputText value="#{item.lote.ingressoTipo.descricao}" />
+							</h:column>
+
+							<!-- 							<h:column> -->
+							<!-- 								<f:facet name="header"> -->
+							<!-- 										<h:outputText value="#{msg.txt_quantidade_ingressos}" /> -->
+							<!-- 								</f:facet> -->
+							<!-- 								<h:outputText value="#{pedidoListagemBean.lotes[item.lote.id]}" /> -->
+							<!-- 							</h:column> -->
+
+							<!-- 							<h:column> -->
+							<!-- 								<f:facet name="header"> -->
+							<!-- 										<h:outputText value="#{msg.txt_total}" /> -->
+							<!-- 								</f:facet> -->
+							<!-- 								<h:outputText value="#{pedidoListagemBean.valorTotal}" /> -->
+							<!-- 							</h:column> -->
+
+						</h:dataTable>
+					</h:panelGroup>
+				</nx:modal>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

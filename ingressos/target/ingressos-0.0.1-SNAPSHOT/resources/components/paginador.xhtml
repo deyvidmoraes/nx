@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+
+		<composite:attribute name="id" required="false" />
+		<composite:attribute name="bean" required="true" />
+		<composite:attribute name="render" required="true" />
+
+	</composite:interface>
+
+	<composite:implementation>
+
+		<div class="wrap-pagination">
+			<div class="total-registros">
+				<h:outputText value="#{msg.txt_total_registros}: " />
+				<strong> <h:outputText
+						value="#{cc.attrs.bean.paginador.totalRegistros}" />
+				</strong>
+			</div>
+
+			<h:panelGroup rendered="#{cc.attrs.bean.paginador.totalPaginas > 1}">
+				<div class="pagination">
+					<span class="links-pagination">
+						<h:panelGroup rendered="#{(cc.attrs.bean.paginador.paginaCorrente == 1)}">
+							<span class="inactive"><h:outputText value="#{msg.txt_primeira}" /></span>
+						</h:panelGroup>
+						<h:commandLink value="#{msg.txt_primeira}" rendered="#{(cc.attrs.bean.paginador.paginaCorrente gt 1)}">
+							<f:ajax execute="@this" render="#{cc.attrs.render}" event="click" listener="#{cc.attrs.bean.primeiraPagina()}" />
+						</h:commandLink>
+						<ui:repeat var="numeroPagina" value="#{cc.attrs.bean.paginador.numerosPaginas()}">
+							<h:outputText value=" " />
+							<h:commandLink value="#{numeroPagina}" styleClass="#{cc.attrs.bean.paginador.paginaCorrente == numeroPagina ? 'active' : ''}">
+								<f:ajax execute="@this" render="#{cc.attrs.render}" event="click" listener="#{cc.attrs.bean.paginar(numeroPagina)}" />
+							</h:commandLink>
+							<h:outputText value=" " />
+						</ui:repeat>
+						<h:panelGroup rendered="#{(cc.attrs.bean.paginador.paginaCorrente eq cc.attrs.bean.paginador.totalPaginas)}">
+							<span class="inactive"><h:outputText value="#{msg.txt_ultima}" /></span>
+						</h:panelGroup>
+						<h:commandLink value="#{msg.txt_ultima}" rendered="#{cc.attrs.bean.paginador.paginaCorrente lt cc.attrs.bean.paginador.totalPaginas}">
+							<f:ajax execute="@this" render="#{cc.attrs.render}" event="click" listener="#{cc.attrs.bean.ultimaPagina()}" />
+						</h:commandLink>
+					</span>, 
+					<!-- TODO Manu -->
+					<span class="total-paginas">
+						<h:outputText value="#{msg.txt_pagina}" />
+						<strong><h:outputText value="#{cc.attrs.bean.paginador.paginaCorrente}" /></strong>
+						<h:outputText value=" " />
+						<h:outputText value="#{msg.txt_minusc_de_um_total_de}" />
+						<strong><h:outputText value="#{cc.attrs.bean.paginador.totalPaginas}" /></strong>
+						<h:outputText value=" " />
+						<h:outputText value="#{msg.txt_paginas}" />
+					</span>
+				</div>
+			</h:panelGroup>
+		</div>
+
+	</composite:implementation>
+</ui:composition>
